@@ -1,0 +1,43 @@
+group 'com.hj'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'dynamicws'
+    version =  this.version
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar.into('static') {
+    from('src/main/webapp')
+}
+
+
+dependencies {
+    compile("org.springframework.boot:spring-boot-starter-web")
+
+    testCompile("junit:junit")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
